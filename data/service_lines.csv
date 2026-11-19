@@ -1,0 +1,8 @@
+service_line_id,service_line_name,service_category,list_price,target_duration_min
+1,General Medical,Urgent & Primary,79.0,14
+2,Mental Health - Therapy,Behavioral Health,129.0,50
+3,Mental Health - Psychiatry,Behavioral Health,249.0,30
+4,Dermatology,Specialty,95.0,12
+5,Nutrition,Wellness,69.0,30
+6,Chronic Care - Diabetes,Chronic Condition,110.0,25
+7,Chronic Care - Hypertension,Chronic Condition,105.0,20

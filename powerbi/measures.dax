@@ -1,0 +1,176 @@
+// =============================================================================
+// Cascade Virtual Care - DAX measures
+//
+// How to load all of these at once (Power BI Desktop):
+//   1. Open DAX query view (left rail, the "DAX" icon).
+//   2. Paste this whole file and click Run. The EVALUATE at the bottom previews results.
+//   3. Click "Update model with changes" (or the "Update model: Add new measure"
+//      links above each MEASURE) to save them into the model.
+//   4. Set the format strings and display folders listed in powerbi/model-design.md.
+//
+// Column names are UPPERCASE because that is how Snowflake returns them.
+// KPI definitions match the metrics in snowflake/05_semantic_view.sql.
+// =============================================================================
+DEFINE
+
+    // ---------------------------------------------------------------- Volume
+    MEASURE FACT_VISIT[Total Visits] =
+        COUNTROWS ( FACT_VISIT )
+
+    MEASURE FACT_VISIT[Completed Visits] =
+        CALCULATE ( [Total Visits], FACT_VISIT[VISIT_STATUS] = "Completed" )
+
+    MEASURE FACT_VISIT[Unique Members] =
+        CALCULATE ( DISTINCTCOUNT ( FACT_VISIT[MEMBER_ID] ), FACT_VISIT[VISIT_STATUS] = "Completed" )
+
+    MEASURE FACT_VISIT[Visits per Member] =
+        DIVIDE ( [Completed Visits], [Unique Members] )
+
+    MEASURE FACT_VISIT[Repeat Member %] =
+        VAR Repeaters =
+            COUNTROWS (
+                FILTER ( VALUES ( FACT_VISIT[MEMBER_ID] ), [Completed Visits] > 1 )
+            )
+        RETURN DIVIDE ( Repeaters, [Unique Members] )
+
+    MEASURE FACT_VISIT[Service Line Mix %] =
+        DIVIDE ( [Completed Visits], CALCULATE ( [Completed Visits], ALL ( DIM_SERVICE_LINE ) ) )
+
+    // ---------------------------------------------------------------- Access
+    MEASURE FACT_VISIT[Avg Wait (min)] =
+        AVERAGE ( FACT_VISIT[WAIT_MINUTES] )
+
+    MEASURE FACT_VISIT[Median Wait (min)] =
+        MEDIAN ( FACT_VISIT[WAIT_MINUTES] )
+
+    MEASURE FACT_VISIT[Wait Target (min)] = 15
+
+    MEASURE FACT_VISIT[Seen Within Target %] =
+        DIVIDE (
+            CALCULATE ( [Completed Visits], FACT_VISIT[WAIT_MINUTES] <= 15 ),
+            [Completed Visits]
+        )
+
+    MEASURE FACT_VISIT[No-Show Rate] =
+        DIVIDE ( CALCULATE ( [Total Visits], FACT_VISIT[VISIT_STATUS] = "No-Show" ), [Total Visits] )
+
+    MEASURE FACT_VISIT[Cancellation Rate] =
+        DIVIDE ( CALCULATE ( [Total Visits], FACT_VISIT[VISIT_STATUS] = "Cancelled" ), [Total Visits] )
+
+    MEASURE FACT_VISIT[Avg Visit Length (min)] =
+        AVERAGE ( FACT_VISIT[DURATION_MINUTES] )
+
+    // ---------------------------------------------------------------- Quality / outcomes
+    MEASURE FACT_VISIT[First Contact Resolution %] =
+        DIVIDE ( SUM ( FACT_VISIT[RESOLVED_FIRST_CONTACT] ), [Completed Visits] )
+
+    MEASURE FACT_VISIT[Referral Rate] =
+        DIVIDE ( SUM ( FACT_VISIT[REFERRAL_FLAG] ), [Completed Visits] )
+
+    MEASURE FACT_VISIT[Prescription Rate] =
+        DIVIDE ( SUM ( FACT_VISIT[PRESCRIPTION_FLAG] ), [Completed Visits] )
+
+    MEASURE FACT_VISIT[ER Avoidance %] =
+        1 - DIVIDE ( SUM ( FACT_VISIT[ER_FOLLOWUP_7D] ), [Completed Visits] )
+
+    // ---------------------------------------------------------------- Financial / utilization
+    MEASURE FACT_VISIT[Visit Revenue] =
+        SUM ( FACT_VISIT[VISIT_COST] )
+
+    MEASURE FACT_VISIT[Revenue per Visit] =
+        DIVIDE ( [Visit Revenue], [Completed Visits] )
+
+    MEASURE FACT_VISIT[Eligible Lives] =
+        SUM ( DIM_EMPLOYER[ELIGIBLE_LIVES] )
+
+    MEASURE FACT_VISIT[Last Data Date] =
+        CALCULATE ( MAX ( FACT_VISIT[REQUEST_DATE] ), REMOVEFILTERS () )
+
+    MEASURE FACT_VISIT[First Data Date] =
+        CALCULATE ( MIN ( FACT_VISIT[REQUEST_DATE] ), REMOVEFILTERS () )
+
+    MEASURE FACT_VISIT[Months in Period] =
+        VAR FirstD = [First Data Date]
+        VAR LastD = [Last Data Date]
+        RETURN
+            CALCULATE (
+                DISTINCTCOUNT ( DIM_DATE[YEAR_MONTH] ),
+                KEEPFILTERS ( DIM_DATE[DATE_DAY] >= FirstD && DIM_DATE[DATE_DAY] <= LastD )
+            )
+
+    // Industry-standard telehealth utilization: annualized visits per 1,000 eligible lives
+    MEASURE FACT_VISIT[Visits per 1K Lives (Annualized)] =
+        DIVIDE ( [Completed Visits], [Eligible Lives] ) * 1000
+            * DIVIDE ( 12, [Months in Period] )
+
+    // ---------------------------------------------------------------- Time intelligence
+    // Blank after the last loaded date, so trend charts don't extend into future months
+    MEASURE FACT_VISIT[Completed Visits PY] =
+        VAR Result =
+            CALCULATE ( [Completed Visits], SAMEPERIODLASTYEAR ( DIM_DATE[DATE_DAY] ) )
+        RETURN
+            IF ( MIN ( DIM_DATE[DATE_DAY] ) <= [Last Data Date], Result )
+
+    MEASURE FACT_VISIT[Completed Visits YoY %] =
+        DIVIDE ( [Completed Visits] - [Completed Visits PY], [Completed Visits PY] )
+
+    MEASURE FACT_VISIT[Completed Visits PM] =
+        CALCULATE ( [Completed Visits], DATEADD ( DIM_DATE[DATE_DAY], -1, MONTH ) )
+
+    MEASURE FACT_VISIT[Completed Visits MoM %] =
+        DIVIDE ( [Completed Visits] - [Completed Visits PM], [Completed Visits PM] )
+
+    MEASURE FACT_VISIT[Completed Visits YTD] =
+        TOTALYTD ( [Completed Visits], DIM_DATE[DATE_DAY] )
+
+    MEASURE FACT_VISIT[Avg Wait Rolling 3M] =
+        CALCULATE (
+            [Avg Wait (min)],
+            DATESINPERIOD ( DIM_DATE[DATE_DAY], MAX ( DIM_DATE[DATE_DAY] ), -3, MONTH )
+        )
+
+    // ---------------------------------------------------------------- Experience
+    MEASURE FACT_SURVEY[Survey Responses] =
+        COUNTROWS ( FACT_SURVEY )
+
+    MEASURE FACT_SURVEY[Survey Response Rate] =
+        DIVIDE ( [Survey Responses], [Completed Visits] )
+
+    MEASURE FACT_SURVEY[NPS] =
+        VAR Promoters  = CALCULATE ( [Survey Responses], FACT_SURVEY[NPS_SCORE] >= 9 )
+        VAR Detractors = CALCULATE ( [Survey Responses], FACT_SURVEY[NPS_SCORE] <= 6 )
+        RETURN DIVIDE ( Promoters - Detractors, [Survey Responses] ) * 100
+
+    MEASURE FACT_SURVEY[Avg CSAT] =
+        AVERAGE ( FACT_SURVEY[CSAT_SCORE] )
+
+    // ---------------------------------------------------------------- Data quality
+    MEASURE DQ_SCORECARD[DQ Failed Rows] =
+        SUM ( DQ_SCORECARD[FAILED_ROWS] )
+
+    MEASURE DQ_SCORECARD[DQ Pass Rate] =
+        1 - DIVIDE ( SUM ( DQ_SCORECARD[FAILED_ROWS] ), SUM ( DQ_SCORECARD[TOTAL_ROWS] ) )
+
+    MEASURE DQ_SCORECARD[DQ Status] =
+        IF ( [DQ Failed Rows] = 0, "Pass", "Review" )
+
+    // ---------------------------------------------------------------- UX helpers
+    MEASURE FACT_VISIT[Data Through] =
+        "Data through " & FORMAT ( [Last Data Date], "mmm d, yyyy" )
+
+    MEASURE FACT_VISIT[Wait Status Color] =
+        IF ( [Avg Wait (min)] <= [Wait Target (min)], "#2E7D5B", "#C0392B" )
+
+// Preview: KPI summary by service line
+EVALUATE
+SUMMARIZECOLUMNS (
+    DIM_SERVICE_LINE[SERVICE_LINE_NAME],
+    "Completed Visits", [Completed Visits],
+    "Avg Wait (min)", [Avg Wait (min)],
+    "Seen Within Target %", [Seen Within Target %],
+    "FCR %", [First Contact Resolution %],
+    "ER Avoidance %", [ER Avoidance %],
+    "NPS", [NPS],
+    "Revenue", [Visit Revenue]
+)
+ORDER BY [Completed Visits] DESC

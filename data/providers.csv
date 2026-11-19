@@ -1,0 +1,107 @@
+provider_id,provider_name,specialty,primary_service_line_id,license_state,region,start_date,employment_type
+P0001,Dr. Ethan Hayes,Family Medicine,1,GA,East,2022-09-07,Employed
+P0002,Dr. Hannah Kim,Family Medicine,1,WA,West,2020-09-04,Employed
+P0003,Dr. Caleb Patel,Family Medicine,1,OH,Central,2022-12-04,Employed
+P0004,Dr. Taylor Young,Family Medicine,1,IL,Central,2023-08-28,Employed
+P0005,Dr. Mateo Xu,Family Medicine,1,FL,East,2021-05-05,Contracted
+P0006,Dr. Noah Young,Family Medicine,1,UT,West,2025-02-15,Employed
+P0007,Dr. Leo Garza,Family Medicine,1,MN,Central,2024-03-13,Contracted
+P0008,Dr. Caleb Underwood,Family Medicine,1,CO,West,2025-06-07,Contracted
+P0009,Dr. Isla Underwood,Family Medicine,1,MT,West,2020-02-20,Contracted
+P0010,Dr. Leo Castillo,Family Medicine,1,NJ,East,2022-02-11,Contracted
+P0011,Dr. Hannah Patel,Family Medicine,1,TX,Central,2021-04-12,Employed
+P0012,Dr. Aria Ortiz,Family Medicine,1,MN,Central,2021-04-18,Contracted
+P0013,Dr. Caleb Ellis,Family Medicine,1,MO,Central,2016-10-19,Employed
+P0014,Dr. Priya Dunn,Family Medicine,1,NY,East,2019-03-13,Employed
+P0015,Dr. Reese Alder,Family Medicine,1,CO,West,2018-04-26,Contracted
+P0016,Dr. Leo Mendez,Family Medicine,1,AZ,West,2017-08-12,Employed
+P0017,Dr. Theo Ortiz,Family Medicine,1,OH,Central,2016-03-27,Employed
+P0018,Dr. Hannah Underwood,Family Medicine,1,NC,East,2025-12-24,Employed
+P0019,Dr. Theo Alder,Family Medicine,1,TX,Central,2025-03-18,Contracted
+P0020,Dr. Jamie Walsh,Family Medicine,1,CO,West,2019-09-02,Contracted
+P0021,Dr. Ethan Ortiz,Family Medicine,1,OR,West,2021-11-19,Employed
+P0022,Dr. Rowan Jensen,Family Medicine,1,IL,Central,2024-07-21,Contracted
+P0023,Dr. Diego Xu,Family Medicine,1,OH,Central,2017-11-19,Contracted
+P0024,Dr. Taylor Nash,Family Medicine,1,IL,Central,2022-09-10,Contracted
+P0025,Dr. Nina Walsh,Family Medicine,1,AZ,West,2017-03-16,Employed
+P0026,Dr. Zoe Hayes,Family Medicine,1,MA,East,2019-02-18,Contracted
+P0027,Dr. Elena Kim,Family Medicine,1,WA,West,2022-06-08,Employed
+P0028,Dr. Hannah Patel,Family Medicine,1,MI,Central,2021-02-02,Employed
+P0029,Dr. Marcus Reyes,Family Medicine,1,AZ,West,2022-10-13,Contracted
+P0030,Dr. Caleb Zimmer,Family Medicine,1,CO,West,2016-04-05,Employed
+P0031,Dr. Quinn Dunn,Family Medicine,1,CA,West,2018-09-20,Contracted
+P0032,Dr. Hannah Castillo,Family Medicine,1,VA,East,2023-05-20,Contracted
+P0033,Dr. Sofia Quigley,Family Medicine,1,PA,East,2022-05-30,Employed
+P0034,Dr. Nina Brooks,Family Medicine,1,UT,West,2021-01-20,Contracted
+P0035,Dr. Aria Kim,Family Medicine,1,AZ,West,2019-05-08,Employed
+P0036,Dr. Theo Underwood,Family Medicine,1,CA,West,2025-08-07,Contracted
+P0037,Dr. Isla Kim,Family Medicine,1,CA,West,2022-07-26,Contracted
+P0038,Dr. Sofia Mendez,Family Medicine,1,MI,Central,2020-06-05,Employed
+P0039,Dr. Zoe Alder,Family Medicine,1,MO,Central,2021-10-18,Employed
+P0040,Dr. Aria Lowe,Family Medicine,1,MT,West,2020-02-23,Employed
+P0041,Dr. Grace Young,Family Medicine,1,VA,East,2018-03-20,Contracted
+P0042,Dr. Leo Ibarra,Family Medicine,1,NY,East,2020-12-15,Employed
+P0043,Dr. Zoe Dunn,Family Medicine,1,OH,Central,2016-04-19,Employed
+P0044,Dr. Aria Dunn,Family Medicine,1,MO,Central,2023-08-13,Employed
+P0045,Dr. Hannah Ellis,Family Medicine,1,IL,Central,2021-08-03,Contracted
+P0046,Dr. Jordan Shah,Family Medicine,1,UT,West,2016-03-01,Contracted
+P0047,Noah Garza,Licensed Therapist,2,UT,West,2016-08-17,Employed
+P0048,Nina Foster,Licensed Therapist,2,GA,East,2017-05-24,Contracted
+P0049,Hannah Alder,Licensed Therapist,2,MN,Central,2021-12-03,Contracted
+P0050,Maya Kim,Licensed Therapist,2,NY,East,2017-11-29,Employed
+P0051,Reese Young,Licensed Therapist,2,CO,West,2024-06-16,Contracted
+P0052,Jamie Patel,Licensed Therapist,2,NJ,East,2025-08-03,Contracted
+P0053,Marcus Brooks,Licensed Therapist,2,IL,Central,2025-03-16,Contracted
+P0054,Elena Xu,Licensed Therapist,2,MT,West,2016-05-07,Employed
+P0055,Jamie Reyes,Licensed Therapist,2,OH,Central,2018-06-26,Employed
+P0056,Leo Ellis,Licensed Therapist,2,TX,Central,2016-12-01,Employed
+P0057,Casey Walsh,Licensed Therapist,2,UT,West,2026-01-29,Employed
+P0058,Noah Ellis,Licensed Therapist,2,MO,Central,2025-08-07,Employed
+P0059,Omar Vance,Licensed Therapist,2,MT,West,2024-09-20,Contracted
+P0060,Omar Shah,Licensed Therapist,2,GA,East,2023-12-27,Contracted
+P0061,Mateo Ortiz,Licensed Therapist,2,TX,Central,2024-03-09,Contracted
+P0062,Noah Ortiz,Licensed Therapist,2,PA,East,2020-02-13,Employed
+P0063,Diego Tran,Licensed Therapist,2,CO,West,2018-09-29,Contracted
+P0064,Dr. Noah Quigley,Psychiatry,3,MO,Central,2024-12-31,Contracted
+P0065,Dr. Sofia Ellis,Psychiatry,3,MA,East,2017-05-04,Contracted
+P0066,Dr. Morgan Alder,Psychiatry,3,MT,West,2022-04-03,Employed
+P0067,Dr. Grace Garza,Psychiatry,3,TX,Central,2018-07-23,Contracted
+P0068,Dr. Riley Tran,Psychiatry,3,TX,Central,2022-08-17,Employed
+P0069,Dr. Maya Nash,Psychiatry,3,NC,East,2024-01-24,Employed
+P0070,Dr. Diego Lowe,Dermatology,4,OH,Central,2021-09-08,Employed
+P0071,Dr. Noah Quigley,Dermatology,4,MA,East,2025-01-03,Contracted
+P0072,Dr. Avery Nash,Dermatology,4,TX,Central,2023-04-16,Contracted
+P0073,Dr. Casey Lowe,Dermatology,4,OR,West,2023-09-22,Employed
+P0074,Dr. Marcus Reyes,Dermatology,4,MN,Central,2022-06-07,Employed
+P0075,Dr. Morgan Zimmer,Dermatology,4,VA,East,2022-01-02,Employed
+P0076,Dr. Jamie Brooks,Dermatology,4,OH,Central,2018-03-18,Contracted
+P0077,Dr. Jamie Jensen,Dermatology,4,MA,East,2019-01-29,Employed
+P0078,Dr. Zoe Quigley,Dermatology,4,AZ,West,2019-10-03,Contracted
+P0079,Theo Castillo,Registered Dietitian,5,NY,East,2021-09-24,Contracted
+P0080,Morgan Patel,Registered Dietitian,5,MN,Central,2025-04-19,Contracted
+P0081,Ethan Vance,Registered Dietitian,5,IL,Central,2019-07-07,Contracted
+P0082,Avery Garza,Registered Dietitian,5,NJ,East,2022-01-16,Contracted
+P0083,Quinn Foster,Registered Dietitian,5,NY,East,2016-02-09,Contracted
+P0084,Quinn Reyes,Registered Dietitian,5,NC,East,2019-09-09,Contracted
+P0085,Hannah Alder,Registered Dietitian,5,CA,West,2017-05-16,Employed
+P0086,Dr. Noah Tran,Endocrinology,6,OH,Central,2018-01-02,Contracted
+P0087,Dr. Casey Ellis,Endocrinology,6,FL,East,2022-06-01,Contracted
+P0088,Dr. Riley Tran,Endocrinology,6,MI,Central,2018-06-16,Contracted
+P0089,Dr. Omar Patel,Endocrinology,6,NC,East,2016-06-27,Employed
+P0090,Dr. Morgan Alder,Endocrinology,6,MT,West,2023-01-03,Contracted
+P0091,Dr. Jamie Lowe,Endocrinology,6,WA,West,2016-11-20,Employed
+P0092,Dr. Maya Patel,Endocrinology,6,TX,Central,2022-02-10,Employed
+P0093,Dr. Elena Ellis,Endocrinology,6,IL,Central,2025-09-18,Contracted
+P0094,Dr. Sofia Alder,Endocrinology,6,CO,West,2021-12-11,Contracted
+P0095,Dr. Diego Nash,Endocrinology,6,MN,Central,2025-08-19,Contracted
+P0096,Dr. Leo Ibarra,Endocrinology,6,TX,Central,2019-03-07,Employed
+P0097,Dr. Sofia Shah,Endocrinology,6,NJ,East,2023-03-25,Employed
+P0098,Dr. Aria Ortiz,Internal Medicine,7,OR,West,2022-07-16,Contracted
+P0099,Dr. Diego Jensen,Internal Medicine,7,OR,West,2020-08-26,Contracted
+P0100,Dr. Taylor Castillo,Internal Medicine,7,MT,West,2017-10-24,Contracted
+P0101,Dr. Leo Xu,Internal Medicine,7,VA,East,2020-11-06,Contracted
+P0102,Dr. Elena Lowe,Internal Medicine,7,CO,West,2025-04-18,Employed
+P0103,Dr. Mateo Hayes,Internal Medicine,7,CA,West,2023-10-19,Employed
+P0104,Dr. Nina Mendez,Internal Medicine,7,AZ,West,2018-09-17,Employed
+P0105,Dr. Noah Zimmer,Internal Medicine,7,AZ,West,2017-10-16,Contracted
+P0106,Dr. Omar Xu,Internal Medicine,7,IL,Central,2018-01-01,Employed

@@ -1,0 +1,25 @@
+employer_id,employer_name,industry,region,hq_state,contract_start_date,eligible_lives,pricing_model
+E001,Summit Logistics,Manufacturing,East,FL,2021-09-30,3000,PEPM
+E002,Bluewater Logistics,Retail,East,NC,2019-05-11,1500,PEPM
+E003,Ironwood Retail Group,Manufacturing,West,AZ,2021-03-25,12000,Per Visit
+E004,Prairie Hospitality,Public Sector,West,UT,2019-01-27,3000,Hybrid
+E005,Harbor Schools,Public Sector,Central,IL,2021-05-31,5000,PEPM
+E006,Granite Systems,Retail,West,OR,2022-11-09,12000,Per Visit
+E007,Juniper Hospitality,Retail,West,CO,2019-11-19,12000,Per Visit
+E008,Northstar County,Education,East,MA,2019-10-12,1500,Hybrid
+E009,Redtail Health Partners,Retail,West,UT,2021-08-11,1500,Per Visit
+E010,Silverline Hospitality,Education,Central,IL,2023-02-25,5000,PEPM
+E011,Timber Health Partners,Retail,East,PA,2024-12-27,3000,PEPM
+E012,Clearview Systems,Public Sector,Central,MI,2025-03-31,3000,Hybrid
+E013,Evergreen Manufacturing,Technology,Central,TX,2022-07-16,8000,Per Visit
+E014,Lakeside Retail Group,Education,West,WA,2024-08-06,8000,Hybrid
+E015,Pinecrest Financial,Public Sector,Central,IL,2021-10-07,12000,Hybrid
+E016,Ridgeway County,Hospitality,Central,OH,2023-06-24,5000,PEPM
+E017,Sagebrush Foods,Logistics,West,CA,2019-07-12,1500,PEPM
+E018,Copper Financial,Hospitality,East,NJ,2023-04-26,8000,Hybrid
+E019,Meadow Foods,Public Sector,Central,OH,2019-02-17,1500,Hybrid
+E020,Cobalt Health Partners,Education,East,NJ,2022-04-17,8000,PEPM
+E021,Falcon Manufacturing,Public Sector,Central,OH,2021-01-01,12000,PEPM
+E022,Willow Health Partners,Technology,East,PA,2023-03-12,3000,Hybrid
+E023,Aspen Manufacturing,Education,East,VA,2019-03-21,1500,Per Visit
+E024,Beacon Retail Group,Manufacturing,Central,IL,2025-05-12,1500,PEPM
