@@ -1,4 +1,4 @@
-# Virtual Care Analytics: Snowflake to Power BI
+# Virtual Care Analytics: Snowflake to Streamlit and Power BI
 
 An end-to-end, governed healthcare analytics platform, built from raw data to executive dashboard: layered ELT in Snowflake, masking and row-level security, data quality monitoring, a star-schema Power BI model, and a semantic view that readies the same data for conversational AI.
 
@@ -17,8 +17,32 @@ An end-to-end, governed healthcare analytics platform, built from raw data to ex
 | **Data governance** | PII tags driving tag-based masking; row access by region from an entitlements table (deny by default); least-privilege role hierarchy; key-pair service account for BI |
 | **Data quality** | Data Metric Functions plus a scorecard view; every planted issue is caught, handled and counted, never silently dropped |
 | **Power BI** | Import semantic model with 10 single-direction relationships, a marked date table, and DAX measures for volume, access, quality, experience and time intelligence; executive dashboard |
-| **AI readiness** | A Snowflake semantic view with business synonyms for Cortex Analyst, inheriting the same masking and row access |
+| **AI readiness** | A Snowflake semantic view with business synonyms, and a Streamlit app where Cortex Analyst answers plain-English questions under the same masking and row access |
 | **Python** | Synthetic data generator with planted defects; a pandas notebook that profiles the data, mirrors the staging logic and reconciles the dashboard |
+
+## Streamlit in Snowflake app
+
+The same governed platform as an operations app built with **Streamlit in Snowflake**, including an AI chat over the data.
+
+![Streamlit app: Ask the data](docs/screenshots/streamlit-ask-the-data.png)
+
+| Tab | What it shows |
+|---|---|
+| **Overview** | KPI cards, year-over-year trend, service line, wait-time target, channel and state breakdowns, with date, region and service line filters |
+| **Ask the data** | A chat over the semantic view: Cortex Analyst turns plain-English questions into SQL, keeps context for follow-ups, and shows the table, a chart and the exact SQL for every answer |
+| **Data quality** | The scorecard plus a drill-down into the actual flagged rows |
+| **Governance** | Masked member data as the app's role sees it, row entitlements, and the policies in force |
+
+- **Least-privilege by design:** the app runs as `VC_APP_OWNER`, a role that is not cleared for personal data, so masking and row access apply inside the app ([`snowflake/07_streamlit_app.sql`](snowflake/07_streamlit_app.sql)).
+- **A governance lesson:** masking policies evaluate against the role running the query, even inside a view. The first scorecard re-validated emails live, so under the masked app role every email failed (6,000 instead of 22). The fix reads quality flags computed at build time ([`snowflake/08_fix_dq_scorecard.sql`](snowflake/08_fix_dq_scorecard.sql)).
+- **Runs on both Streamlit runtimes:** Cortex Analyst is called through `_snowflake` on the warehouse runtime and through REST with the container's session token on the container runtime.
+- **Runs outside Snowflake too:** with no Snowflake session, the app reads a pre-masked local copy of the tables with DuckDB (`streamlit/build_local_data.py`), so it can be deployed publicly on Streamlit Community Cloud. The AI chat is Snowflake-only.
+
+[Watch the 76-second app tour](docs/streamlit-app-tour.mp4)
+
+| Overview | Governance |
+|---|---|
+| ![Overview](docs/screenshots/streamlit-overview.png) | ![Governance](docs/screenshots/streamlit-governance.png) |
 
 ## Architecture
 
@@ -50,7 +74,8 @@ Design decisions are explained in [`docs/architecture.md`](docs/architecture.md)
 ```
 data/                     synthetic source extracts (regenerate with scripts/generate_data.py)
 scripts/generate_data.py  seeded data generator with planted data-quality defects
-snowflake/                numbered SQL scripts, run in order (00–06); 99_teardown.sql resets
+snowflake/                numbered SQL scripts, run in order (00–08); 99_teardown.sql resets
+streamlit/                Streamlit in Snowflake app (also runs locally on a masked copy)
 powerbi/                  DAX measures, model design, report page specs, theme
 notebooks/                end-to-end walkthrough notebook (outputs included)
 docs/                     architecture, build guide, screenshots, PDF walkthrough
